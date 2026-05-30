@@ -6,7 +6,7 @@ CCC218 Programación Móvil — CEUTEC San Pedro Sula — 2026-S1-M2
 
 ## Stack
 
-- Expo SDK 56 + React Native + TypeScript
+- Expo SDK 54 + React Native + TypeScript
 - React Navigation v6
 - Supabase (Auth + Postgres + Storage)
 - `expo-audio` para reproducción, `expo-file-system` para almacenamiento offline
