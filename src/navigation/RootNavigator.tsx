@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../auth/useAuth';
 import { theme } from '../themes';
 import Bienvenida from '../screens/Bienvenida';
@@ -50,8 +51,24 @@ function MainTabs() {
         tabBarInactiveTintColor: theme.colors.dust,
       }}
     >
-      <Tabs.Screen name="Mercado" component={MercadoNavigator} />
-      <Tabs.Screen name="Yo" component={Yo} />
+      <Tabs.Screen
+        name="Mercado"
+        component={MercadoNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="book-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Yo"
+        component={Yo}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" color={color} size={size} />
+          ),
+        }}
+      />
     </Tabs.Navigator>
   );
 }
