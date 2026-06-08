@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { Pressable, Text, StyleSheet, View } from "react-native";
 import { theme } from "../themes";
 
 type Props = {
@@ -11,17 +11,16 @@ type Props = {
 export default function CustomButton(props: Props) {
   const { label, onPress, variant, disabled } = props;
 
+  const buttonStyle =
+    variant === "primary"
+      ? styles.customButtonPrimary
+      : styles.customButtonSecondary;
+
   return (
     <View>
-      <TouchableOpacity
+      <Pressable
         onPress={disabled ? undefined : onPress}
-        style={
-          disabled
-            ? styles.disabled
-            : variant === "primary"
-              ? styles.customButtonPrimary
-              : ""
-        }
+        style={[buttonStyle, disabled && styles.disabled]}
       >
         <Text
           style={
@@ -32,7 +31,7 @@ export default function CustomButton(props: Props) {
         >
           {label}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }
@@ -41,7 +40,15 @@ const styles = StyleSheet.create({
   customButtonPrimary: {
     backgroundColor: theme.colors.rust,
     borderRadius: theme.radius.md,
-    padding: theme.spacing.md,
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.lg,
+    alignItems: "center",
+  },
+
+  customButtonSecondary: {
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.lg,
+    alignItems: "center",
   },
 
   customLabelPrimary: {

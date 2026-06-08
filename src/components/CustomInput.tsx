@@ -3,32 +3,39 @@ import { theme } from "../themes";
 
 type Props = {
   label: string;
+  value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
   type?: "text" | "email" | "password" | "phone";
   error?: string; // si tiene valor, se pinta el borde en rojo y se muestra abajo
+  required?: boolean;
 };
 
 export default function CustomInput(props: Props) {
-  const { label, onChangeText, placeholder, type, error } = props;
+  const { label, value, onChangeText, placeholder, type, error, required } = props;
 
 
   const keyboardType =
     type === "email"
       ? "email-address"
-      : type === "text" || type === "password"
-        ? "default"
-        : "phone-pad";
+      : type === "phone"
+        ? "phone-pad"
+        : "default";
 
-  const hasError: boolean = error === "" ? false : true;
+  const hasError = !!error && error.length > 0;
 
   return (
     <View>
-      <Text style={styles.customLabel}>{label}</Text>
+      <Text style={styles.customLabel}>
+        {label}{required ? " *" : ""}
+      </Text>
       <TextInput
+        value={value}
         placeholder={placeholder}
-        keyboardType={keyboardType ? keyboardType : 'default'}
+        placeholderTextColor={theme.colors.dust}
+        keyboardType={keyboardType}
         secureTextEntry={type === "password"}
+        autoCapitalize={type === "email" ? "none" : "sentences"}
         onChangeText={onChangeText}
         style={[
           styles.customInput,
@@ -53,7 +60,9 @@ const styles = StyleSheet.create({
 
   customInput: {
     borderWidth: 1,
+    borderRadius: theme.radius.md,
     padding: theme.spacing.md,
+    color: theme.colors.bone,
   },
 
   customLabel: {
